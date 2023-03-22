@@ -85,3 +85,21 @@
 </ul>
 
 <p>Em geral, estas alterações serão validas para quaisquer versões que você utilizar, desde que seja a mesma ou superior às citadas acima, no nível minor, ou seja, se estiver dentro do 4.11.X (no caso do STS) e 2.7.X (no caso do Spring Boot).</p>
+
+
+## Atualização do Flyway 8
+
+<p>Devido à atualização da dependência do Flyway para a versão 8 no Spring Boot 2.7.0, é necessário adicionar uma dependência a mais do Flyway, dependendo do banco de dados utilizado.</p>
+
+<p>Caso utilize o MySQL, adicione:</p>
+<pre>
+  <code>
+      <span><</span><span>dependency</span><span>></span>
+          <span><</span><span>groupId</span><span>></span>com.algaworks.algamoney_api<span><</span><span>/groupId</span><span></span>
+          <span><</span><span>artifactId</span><span>></span>algamoney_api<span><</span><span>/artifactId</span><span>></span>
+      <span><</span><span>/dependency</span><span>></span>
+  </code>
+</pre>
+
+### A tabela schema_version
+<p>No Spring 2.5.0, o Flyway é instalado na versão 7.9.1. Nesta versão, a tabela schema_version, gerada de forma automática, aparece com o nome flyway_schema_history.</p>
