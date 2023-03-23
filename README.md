@@ -124,3 +124,8 @@
 <p>Usamos o método map, para transformar o objeto que foi retornado como Optional (isso é feito caso o mesmo não seja null), depois retorna o objeto transformado em Optional novamente.</p>
 <p>Como o retorno do próprio map também é um Optional, podemos utilizar o método orElse, para retornarmos notFound, como mostrado na imagem acima.</p>
 
+# 3.10 Validando valores inválidos com Bean Validation
+
+<p>O Hibernate Validator não é mais adicionado como dependência no spring-boot-starter-web. É necessário adicionar a dependência spring-boot-starter-validation para utilizar as validações @NotNull</p>
+
+ ![dependenciaBeanValidation.png](images/dependenciaBeanValidation.png)

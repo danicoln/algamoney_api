@@ -3,6 +3,7 @@ package com.algaworks.algamoney_api.resource;
 import com.algaworks.algamoney_api.model.Categoria;
 import com.algaworks.algamoney_api.repository.CategoriaRepository;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class CategoriaResource {
 
     @PostMapping
     //@ResponseStatus(HttpStatus.CREATED) // ao terminar a execução deste método, retornará 201
-    public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria, HttpServletResponse response){
+    public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response){
         Categoria categoriaSalva = categoriaRepository.save(categoria);
         //melhorar este código
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
