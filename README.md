@@ -136,3 +136,14 @@
 ![diagrama.png](images/diagrama.png)
 
 <p>Cadastrar 10 pessoas</p>
+
+# Usando eventos para adicionar header Location
+
+<p>Para resolver um problema de código duplicado nas classes PessoaResource e CategoriaResource.</p>
+<p>Toda vez que o dev quiser adicionar o header Location, um método irá disparar um evento </p>
+
+<p> Criei uma classe RecursoCriadoEvent no pacote event que extende a AplicationEvent</p>
+<p> Criei uma classe (que é o listener do evento e que precisa ser anotado como Component) RecursoCriadoListener no pacote listener que implementa a AplicationListener</p>
+<p> Nesta classe do listener, implementado o método onApplicationEvent</p>
+
+![classeRecursoCriadoListener.png](images/classeRecursoCriadoListener.png)
