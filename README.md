@@ -103,3 +103,24 @@
 
 ### A tabela schema_version
 <p>No Spring 2.5.0, o Flyway é instalado na versão 7.9.1. Nesta versão, a tabela schema_version, gerada de forma automática, aparece com o nome flyway_schema_history.</p>
+
+
+# Desafio 3.7 : Retornar 404 caso não exista a categoria
+
+## Minha Resolução
+![minhaResolucao.png](images/minhaResolucao.png)
+<p>Minha resolução no momento do desafio</p>
+
+### Utilizando isPresent()
+
+![img.png](images/img.png)
+<p>Esta sugestão é bem parecida com a resolução da própria aula, porém ao invés de ficarmos checando manualmente de objeto é null ou não, o Optional nos dá algumas facilidades.</p>
+<p>Neste caso utilizamos o método isPresent, que nada mais é que uma comparação “obj != null”, e finalizamos com um ternário, igual a resolução da aula.</p>
+
+### Utilizando o Map
+
+![resolucaoComMap.png](images/resolucaoComMap.png)
+<p>Neste exemplo, fizemos a chamada ao método findById que nos retornou um Optional do tipo Categoria.</p>
+<p>Usamos o método map, para transformar o objeto que foi retornado como Optional (isso é feito caso o mesmo não seja null), depois retorna o objeto transformado em Optional novamente.</p>
+<p>Como o retorno do próprio map também é um Optional, podemos utilizar o método orElse, para retornarmos notFound, como mostrado na imagem acima.</p>
+
