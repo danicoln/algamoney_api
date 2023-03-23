@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/pessoas")
@@ -43,4 +44,9 @@ public class PessoaResource {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{codigo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Integer codigo){
+        this.pessoaRepository.deleteById(codigo);
+    }
 }
