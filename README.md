@@ -129,3 +129,10 @@
 <p>O Hibernate Validator não é mais adicionado como dependência no spring-boot-starter-web. É necessário adicionar a dependência spring-boot-starter-validation para utilizar as validações @NotNull</p>
 
  ![dependenciaBeanValidation.png](images/dependenciaBeanValidation.png)
+ 
+# Desafio: 3.11 - Criando o cadastro de pessoa
+
+## Diagrama
+![diagrama.png](images/diagrama.png)
+
+<p>Cadastrar 10 pessoas</p>
