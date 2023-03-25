@@ -3,10 +3,13 @@ package com.algaworks.algamoney_api.resource;
 import com.algaworks.algamoney_api.event.RecursoCriadoEvent;
 import com.algaworks.algamoney_api.model.Pessoa;
 import com.algaworks.algamoney_api.repository.PessoaRepository;
+import com.algaworks.algamoney_api.service.PessoaService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,9 @@ public class PessoaResource {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private PessoaService pessoaService;
 
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -49,4 +55,17 @@ public class PessoaResource {
     public void remover(@PathVariable Integer codigo){
         this.pessoaRepository.deleteById(codigo);
     }
+
+    @PutMapping("{codigo}")
+    public Pessoa atualizar(@Valid @PathVariable Integer codigo, @RequestBody Pessoa pessoa){
+       Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);
+        return pessoaRepository.save(pessoaSalva);
+    }
+
+    @PutMapping("/{codigo}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizarPropriedadeAtivo(@PathVariable Integer codigo, @RequestBody Boolean ativo){
+        pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
+    }
+
 }

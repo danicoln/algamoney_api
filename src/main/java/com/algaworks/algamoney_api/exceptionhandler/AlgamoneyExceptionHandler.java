@@ -14,7 +14,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -35,7 +34,7 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         //mensagem configurada em messages.properties
         String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.getCause().toString();
+        String mensagemDesenvolvedor = ex.getCause() != null ?ex.getCause().toString() : ex.toString();
         List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
@@ -54,21 +53,21 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
     //===============================================
     //No meu caso, fica dando 204 sempre.
     //===============================================
-//    @ExceptionHandler({EmptyResultDataAccessException.class})
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public ResponseEntity<Object> handleEmptyResultDataAccessException(RuntimeException ex, WebRequest request){
-//        String mensagemUsuario = messageSource.getMessage("recurso.não-encontrado", null, LocaleContextHolder.getLocale());
-//        String mensagemDesenvolvedor = ex.toString();
-//        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
-//
-//        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-//    }
+    // Codigo não funcionou também com o método Put, da aula 4.3.Da erro 500
+    @ExceptionHandler({EmptyResultDataAccessException.class})
+    public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
+        String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
+        String mensagemDesenvolvedor = ex.toString();
+        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
 
-    private List<Erro> criarListaDeErros(BindingResult bindingResult){
+
+    private List<Erro> criarListaDeErros(BindingResult bindingResult) {
         List<Erro> erros = new ArrayList<>();
 
         //para criar lista de erros
-        for(FieldError fieldError : bindingResult.getFieldErrors()){
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
             String msgUsuario = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
             String msgDesenvolvedor = fieldError.toString();
             erros.add(new Erro(msgUsuario, msgDesenvolvedor));
@@ -76,7 +75,7 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
         return erros;
     }
 
-    public static class Erro{
+    public static class Erro {
         private String mensagemUsuario;
         private String mensagemDesenvolvedor;
 
