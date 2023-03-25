@@ -24,8 +24,6 @@ import java.util.List;
 @ControllerAdvice // para virar um componente do spring e observar toda a aplicação
 public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
     // Captura exceções de respostas de entidades
-
-
     @Autowired
     private MessageSource messageSource;
 
@@ -34,7 +32,7 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         //mensagem configurada em messages.properties
         String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.getCause() != null ?ex.getCause().toString() : ex.toString();
+        String mensagemDesenvolvedor = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
         List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
@@ -48,12 +46,6 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    //este codigo foi feito para caso o usuario
-    // tente excluir a pessoa pelo Id mais de uma vez
-    //===============================================
-    //No meu caso, fica dando 204 sempre.
-    //===============================================
-    // Codigo não funcionou também com o método Put, da aula 4.3.Da erro 500
     @ExceptionHandler({EmptyResultDataAccessException.class})
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
@@ -61,7 +53,6 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
         List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
-
 
     private List<Erro> criarListaDeErros(BindingResult bindingResult) {
         List<Erro> erros = new ArrayList<>();

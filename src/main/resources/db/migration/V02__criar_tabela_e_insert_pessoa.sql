@@ -1,6 +1,5 @@
---cria a tabela pessoa--
     CREATE TABLE pessoa (
-    codigo SERIAL,
+    codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(55) NOT NULL,
     logradouro VARCHAR(30),
     numero VARCHAR(30),
@@ -10,9 +9,8 @@
     cidade VARCHAR(30),
     estado VARCHAR(30),
     ativo BOOLEAN NOT NULL
-    );
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    --inserir 10 pessoas
     INSERT INTO pessoa (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('John Paul', true,'Rua Bonifacio Lopes', '123', 'bloco A Casa C', 'Jardim Campo Belo', '13170000', 'Sumaré', 'São Paulo');
     INSERT INTO pessoa (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Steve Satris', true, 'Rua Trevisan', '400', null, 'Bairro Silva Azevedo', '10000777', 'São Paulo', 'São Paulo');
     INSERT INTO pessoa (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Joe Vai', true, 'Avenida Estranha', '90', 'Bloco 1 Casa 5', 'Bairro Esquisito', '13131333', 'Lugar Bonito', 'São Sebastião');
