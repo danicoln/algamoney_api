@@ -4,6 +4,7 @@ import com.algaworks.algamoney_api.event.RecursoCriadoEvent;
 import com.algaworks.algamoney_api.exceptionhandler.AlgamoneyExceptionHandler;
 import com.algaworks.algamoney_api.model.Lancamento;
 import com.algaworks.algamoney_api.repository.LancamentoRepository;
+import com.algaworks.algamoney_api.repository.filter.LancamentoFilter;
 import com.algaworks.algamoney_api.service.LancamentoService;
 import com.algaworks.algamoney_api.service.exception.PessoaInexistenteOuInativaException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,8 +38,8 @@ public class LancamentoResource {
 
     //Desafio
     @GetMapping
-    public List<Lancamento> listarLancamentos(){
-        return repository.findAll();
+    public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){
+        return repository.filtrar(lancamentoFilter);
     }
     //Desafio
     @GetMapping("/{codigo}")
