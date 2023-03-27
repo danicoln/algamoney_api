@@ -95,7 +95,7 @@
 <pre>
   <code>
       <span><</span><span>dependency</span><span>></span>
-          <span><</span><span>groupId</span><span>></span>com.algaworks.algamoney_api<span><</span><span>/groupId</span><span></span>
+          <span><</span><span>groupId</span><span>></span>com.algaworks.algamoney_api<span><</span><span>/groupId</span><span></span><span>></span>
           <span><</span><span>artifactId</span><span>></span>algamoney_api<span><</span><span>/artifactId</span><span>></span>
       <span><</span><span>/dependency</span><span>></span>
   </code>
@@ -147,3 +147,39 @@
 <p> Nesta classe do listener, implementado o método onApplicationEvent</p>
 
 ![classeRecursoCriadoListener.png](images/classeRecursoCriadoListener.png)
+
+## 5.7 - Atualização da dependência JPA Modelgen
+<p>No vídeo foi utilizada a versão 5.0.12.Final da dependência hibernate-jpamodelgen.A versão adequada para o Spring 2.7.X é a 5.6.9.Final. Para fazer o download desta versão basta adicionar a seguinte dependência no pom.xml</p>
+
+<pre>
+  <code>
+      <span><</span><span>dependency</span><span>></span>
+          <span><</span><span>groupId</span><span>></span>org.hibernate<span><</span><span>/groupId</span><span></span><span>></span>
+          <span><</span><span>artifactId</span><span>></span>hibernate-jpamodelgen<span><</span><span>/artifactId</span><span>></span>
+          <span><</span><span>scope</span><span>></span>provided<span><</span><span>/scope</span><span>></span>
+      <span><</span><span>/dependency</span><span>></span>
+  </code>
+</pre>
+
+<p>A configuração mostrada na aula para o STS continua igual.</p>
+
+## Método isEmpty da biblioteca StringUtils
+
+<p>O método isEmpty da bilbioteca StringUtils foi depreciado. É aconselhável utilizar o método de mesmo nome da bilblioteca ObjectUtils.</p>
+
+<pre>
+  <code>
+      if(!ObjectUtils.isEmpty(lancamentoFilter.getDescricao())) {
+    predicates.add(builder.like(
+            builder.lower(root.get(Lancamento_.descricao)), "%" + lancamentoFilter.getDescricao().toLowerCase() + "%"));
+}
+  </code>
+</pre>
+
+<p>A importação deve ser feita com o seguinte comando:</p>
+
+<pre>
+  <code>
+    import org.springframework.util.ObjectUtils;
+  </code>
+</pre>

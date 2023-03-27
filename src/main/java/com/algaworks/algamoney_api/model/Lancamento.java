@@ -2,6 +2,7 @@ package com.algaworks.algamoney_api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +15,8 @@ public class Lancamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
+
+    @NotNull
     private String descricao;
 
     @Column(name = "data_vencimento")
@@ -24,16 +27,20 @@ public class Lancamento {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataPagamento;
 
+    @NotNull
     private BigDecimal valor;
     private String observacao;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private TipoLancamento tipo;
 
+    @NotNull
     @ManyToOne // vários lançamentos podem estar em uma categoria
     @JoinColumn(name = "codigo_categoria")
     private Categoria categoria;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "codigo_pessoa")
     private Pessoa pessoa;

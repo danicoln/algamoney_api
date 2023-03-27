@@ -28,7 +28,7 @@ public class PessoaService {
 
     }
 
-    private Pessoa buscarPessoaPeloCodigo(Integer codigo) {
+    public Pessoa buscarPessoaPeloCodigo(Integer codigo) {
         Pessoa pessoaSalva = pessoaRepository.findById(codigo)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
         return pessoaSalva;
