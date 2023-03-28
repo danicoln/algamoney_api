@@ -8,11 +8,11 @@ public class LancamentoFilter {
 
     private String descricao;
 
-    //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dataVendimentoAte;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataVencimentoAte;
 
-    //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dataVendimentoDe;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataVencimentoDe;
 
     public String getDescricao() {
         return descricao;
@@ -22,19 +22,19 @@ public class LancamentoFilter {
         this.descricao = descricao;
     }
 
-    public LocalDate getDataVendimentoDe() {
-        return dataVendimentoDe;
+    public LocalDate getDataVencimentoDe() {
+        return dataVencimentoDe;
     }
 
-    public void setDataVendimentoDe(LocalDate dataVendimentoDe) {
-        this.dataVendimentoDe = dataVendimentoDe;
+    public void setDataVencimentoDe(LocalDate dataVencimentoDe) {
+        this.dataVencimentoDe = dataVencimentoDe;
     }
 
-    public LocalDate getDataVendimentoAte() {
-        return dataVendimentoAte;
+    public LocalDate getDataVencimentoAte() {
+        return dataVencimentoAte;
     }
 
-    public void setDataVendimentoAte(LocalDate dataVendimentoAte) {
-        this.dataVendimentoAte = dataVendimentoAte;
+    public void setDataVencimentoAte(LocalDate dataVencimentoAte) {
+        this.dataVencimentoAte = dataVencimentoAte;
     }
 }

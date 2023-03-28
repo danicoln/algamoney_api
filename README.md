@@ -166,7 +166,6 @@
 ## Método isEmpty da biblioteca StringUtils
 
 <p>O método isEmpty da bilbioteca StringUtils foi depreciado. É aconselhável utilizar o método de mesmo nome da bilblioteca ObjectUtils.</p>
-
 <pre>
   <code>
       if(!ObjectUtils.isEmpty(lancamentoFilter.getDescricao())) {
@@ -175,6 +174,7 @@
 }
   </code>
 </pre>
+<p>Não foi possível utilizar os crecursos do metaModel no IntelliJIDEA, por isso, optei utilizar a string mesmo</p>
 
 <p>A importação deve ser feita com o seguinte comando:</p>
 

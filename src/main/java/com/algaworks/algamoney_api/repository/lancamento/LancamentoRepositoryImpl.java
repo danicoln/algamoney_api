@@ -9,11 +9,13 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery{
 
@@ -21,7 +23,7 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery{
     private EntityManager entityManager;
 
     @Override
-    public List<Lancamento> filtrar(LancamentoFilter lancamentoFilter) {
+    public Page<Lancamento> filtrar(LancamentoFilter lancamentoFilter, Pageable pageable) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Lancamento> criteria = builder.createQuery(Lancamento.class);
 
@@ -32,7 +34,32 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery{
         criteria.where(predicates);
 
         TypedQuery<Lancamento> query = entityManager.createQuery(criteria);
-        return query.getResultList();
+        
+        adicionarRestricoesDePaginacao(query, pageable);
+        
+        return new PageImpl<>(query.getResultList(), pageable, total(lancamentoFilter));
+    }
+
+    private Long total(LancamentoFilter lancamentoFilter) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<Lancamento> root = criteria.from(Lancamento.class);
+
+        Predicate[] predicates = criarRestricoes(lancamentoFilter, builder, root);
+        criteria.where(predicates);
+
+        criteria.select(builder.count(root));
+
+        return entityManager.createQuery(criteria).getSingleResult();
+    }
+
+    private void adicionarRestricoesDePaginacao(TypedQuery<Lancamento> query, Pageable pageable) {
+        int paginaAtual = pageable.getPageNumber();
+        int totalRegistrosPorPagina = pageable.getPageSize();
+        int primeiroRegistroDaPagina = paginaAtual * totalRegistrosPorPagina;
+
+        query.setFirstResult(primeiroRegistroDaPagina);
+        query.setMaxResults(totalRegistrosPorPagina);
     }
 
     private Predicate[] criarRestricoes(LancamentoFilter lancamentoFilter, CriteriaBuilder builder, Root<Lancamento> root) {
@@ -48,18 +75,18 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery{
                     "%" + lancamentoFilter.getDescricao()
                             .toLowerCase() + "%"));
         }
-        if(lancamentoFilter.getDataVendimentoDe() != null){
-//            predicates.add(e)
-
+        if(lancamentoFilter.getDataVencimentoDe() != null){
+            predicates.add(
+                    builder.greaterThanOrEqualTo(root.get("dataVencimentoDe"), lancamentoFilter.getDataVencimentoDe())
+            );
         }
-        if(lancamentoFilter.getDataVendimentoAte() != null){
-//            predicates.add(e)
-
+        if(lancamentoFilter.getDataVencimentoAte() != null){
+            predicates.add(
+                    builder.lessThanOrEqualTo(root.get("dataVencimentoAte"), lancamentoFilter.getDataVencimentoAte())
+            );
         }
 
         return predicates.toArray(new Predicate[predicates.size()]);
-
     }
-
 
 }
