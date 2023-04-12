@@ -183,3 +183,12 @@
     import org.springframework.util.ObjectUtils;
   </code>
 </pre>
+
+# Problema com o Manifest.txt
+
+<p>Acontece que o arquivo jar fica localizado na pasta "target". Sendo assim, estando na pais raiz do projeto, passe o nome da pasta targe junto ao nome do arquivo jar usar o seguinte comando:</p>
+
+<pre>
+     java -jar "./target/algamoney_api-0.0.1-SNAPSHOT.jar --spring.datasource.username= --spring.datasource.password=root"
+</pre>
+
