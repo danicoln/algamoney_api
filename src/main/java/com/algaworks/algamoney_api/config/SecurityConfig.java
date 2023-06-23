@@ -2,13 +2,16 @@ package com.algaworks.algamoney_api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 //@Profile("oauth-security")
 @EnableWebSecurity
@@ -16,51 +19,25 @@ import org.springframework.security.web.SecurityFilterChain;
 // Não é necessário anotar @Configuration, uma vez que esta anotação já tem dentro de EnableWebSecurity, mas n tem problema em declarar aqui tbm
 public class SecurityConfig {
 
-    //Tirado da internet (O metodo withDefaultPasswordEncoder está deprecated)
-//    public InMemoryUserDetailsManager userDetailsService(){
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("admin")
-//                .roles("ROLE")
-//                .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
-    //da aula
-
-    public void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("ROLE");
-    //ROLE seria a autorizacao que o usuario deveria ter
-    }
-//
-//   public void configure(HttpSecurity http) throws Exception{
-//        http.authorizeHttpRequests()
-//                .requestMatchers("/categorias").permitAll()
-//                .requestMatchers("/lancamentos").permitAll()
-//                .requestMatchers("/pessoas").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .httpBasic().and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .csrf().disable();
-//   }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return  http.csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/*").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().build();
+        http.csrf().disable()
+        .authorizeHttpRequests().requestMatchers("/*").permitAll()
+        .anyRequest().authenticated()
+        .and().cors(Customizer.withDefaults())
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        return http.build();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+   @Bean
+   public CorsConfigurationSource corsConfigurationSource(){
+       CorsConfiguration config = new CorsConfiguration();
+       config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+       config.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT", "OPTIONS", "HEAD", "TRACE", "CONNECT"));
+       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+       source.registerCorsConfiguration("/**", config);
+       return source;
+   }
 
     // add o método passwordEncoder
 

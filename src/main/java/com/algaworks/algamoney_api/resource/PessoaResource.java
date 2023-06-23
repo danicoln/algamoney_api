@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +29,10 @@ public class PessoaResource {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    @GetMapping
-    public List<Pessoa> listarPessoas() {
-        return pessoaRepository.findAll();
-    }
+//    @GetMapping
+//    public List<Pessoa> listarPessoas() {
+//        return pessoaRepository.findAll();
+//    }
 
     @PostMapping
     public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
@@ -63,6 +65,11 @@ public class PessoaResource {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarPropriedadeAtivo(@PathVariable Integer codigo, @RequestBody Boolean ativo){
         pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
+    }
+
+    @GetMapping
+    public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "") String nome, Pageable pageable){
+        return pessoaRepository.findByNomeContaining(nome, pageable);
     }
 
 }
