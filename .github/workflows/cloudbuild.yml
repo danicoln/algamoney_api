@@ -32,7 +32,9 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file="C:\Users\User\OneDrive\Documentos\Developer\GoogleCloud\Keys"
+        run: |
+          export GOOGLE_APPLICATION_CREDENTIALS="$GITHUB_WORKSPACE/Keys/algamoney-api-391316-27ecb29e2e82.json"
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
 
       - name: Deploy to Google Cloud
         run: gcloud app deploy
