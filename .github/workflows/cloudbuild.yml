@@ -30,11 +30,14 @@ jobs:
           version: '340.0.0'
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+          
+      - name: Copy Google Cloud service key
+        run: |
+          cp Keys\algamoney-api-391316-27ecb29e2e82.json $GITHUB_WORKSPACE\algamoney-api-391316-27ecb29e2e82.json
 
       - name: Authenticate with Google Cloud
         run: |
-          $env:GOOGLE_APPLICATION_CREDENTIALS="$env:GITHUB_WORKSPACE\Keys\algamoney-api-391316-27ecb29e2e82.json"
-          gcloud auth activate-service-account --key-file="$env:GOOGLE_APPLICATION_CREDENTIALS"
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
 
       - name: Deploy to Google Cloud
         run: gcloud app deploy
