@@ -33,7 +33,7 @@ jobs:
           
       #Authehticação
       - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file=${{ secrets.GCP_CREDENTIALS }}
+        run: gcloud auth activate-service-account --key-file=${{ env.GCP_CREDENTIALS }}
           
       - name: Deploy to Google Cloud
         run: gcloud app deploy
