@@ -30,8 +30,12 @@ jobs:
           version: '340.0.0'
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          
-      #Authehticação
+      
+      #Confere a variável de ambiente    
+      - name: GCP_CREDENTIALS
+        run: echo ${{ env.GCP_CREDENTIALS }}
+        
+      #Autenticação
       - name: Authenticate with Google Cloud
         run: gcloud auth activate-service-account --key-file=${{ env.GCP_CREDENTIALS }}
           
