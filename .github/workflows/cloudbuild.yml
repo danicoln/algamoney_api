@@ -33,7 +33,7 @@ jobs:
       
       #Confere a variável de ambiente    
       - name: GCP_CREDENTIALS
-        run: echo "json_content:$(cat C:\Users\User\OneDrive\Documentos\Developer\GoogleCloud\Keys\algamoney-api-391316-27ecb29e2e82.json)" >> $GITHUB_ENV
+        run: echo "json_content:$(cat C:\Keys\algamoney-api-391316-27ecb29e2e82.json)" >> $GITHUB_ENV
         
       #Autenticação
       - name: Authenticate with Google Cloud
