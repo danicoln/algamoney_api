@@ -31,6 +31,10 @@ jobs:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           
+      #Authehticação
+      - name: Authenticate with Google Cloud
+        run: gcloud auth activate-service-account --key-file=${{ secrets.GCP_CREDENTIALS }}
+          
       - name: Deploy to Google Cloud
         run: gcloud app deploy
         
