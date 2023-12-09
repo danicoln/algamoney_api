@@ -14,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaResource {
@@ -26,7 +24,9 @@ public class PessoaResource {
     @Autowired
     private PessoaService pessoaService;
 
-    /**Publicador de evento de aplicação*/
+    /**
+     * Publicador de evento de aplicação
+     */
     @Autowired
     private ApplicationEventPublisher publisher;
 
@@ -53,24 +53,24 @@ public class PessoaResource {
 
     @DeleteMapping("/{codigo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable Integer codigo){
+    public void remover(@PathVariable Integer codigo) {
         this.pessoaRepository.deleteById(codigo);
     }
 
     @PutMapping("{codigo}")
-    public Pessoa atualizar(@Valid @PathVariable Integer codigo, @RequestBody Pessoa pessoa){
-       Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);
-        return pessoaRepository.save(pessoaSalva);
+    public ResponseEntity<Pessoa> atualizar(@Valid @PathVariable Integer codigo, @RequestBody Pessoa pessoa) {
+        Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);
+        return ResponseEntity.ok(pessoaSalva);
     }
 
     @PutMapping("/{codigo}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarPropriedadeAtivo(@PathVariable Integer codigo, @RequestBody Boolean ativo){
+    public void atualizarPropriedadeAtivo(@PathVariable Integer codigo, @RequestBody Boolean ativo) {
         pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
     }
 
     @GetMapping
-    public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "") String nome, Pageable pageable){
+    public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "") String nome, Pageable pageable) {
         return pessoaRepository.findByNomeContaining(nome, pageable);
     }
 
