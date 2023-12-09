@@ -259,3 +259,6 @@ Outra alteração recomendada é a atualização de spring-security-oauth2 para 
 </dependency>
 ```
 
+# Sobre Autenticação e Autorização com Spring Security e JWT Tokens
+
+A Fernanda Kipper ensina a trabalhar com Autenticação e Autorização, [ver mais clicando aqui.](https://www.youtube.com/watch?v=5w-YCcOjPD0)
