@@ -23,6 +23,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @ControllerAdvice // para virar um componente do spring e observar toda a aplicação
 public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
@@ -34,8 +35,14 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         //mensagem configurada em messages.properties
-        String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-        String mensagemDesenvolvedor = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
+        String mensagemUsuario = this.messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
+
+        /**
+         * 4.4. Implementando atualização parcial com PUT
+         *  Melhoria na legibilidade conforme Nota da aula
+         */
+        String mensagemDesenvolvedor = Optional.ofNullable(ex.getCause()).orElse(ex).toString();
+
         List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
