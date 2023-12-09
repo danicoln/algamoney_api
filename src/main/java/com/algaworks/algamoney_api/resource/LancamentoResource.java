@@ -51,11 +51,11 @@ public class LancamentoResource {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //Desafio5.3
+    //Desafio5.3 - Correção
     @PostMapping
     public ResponseEntity<Lancamento> cadastrarLancamento(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response){
         Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
-        publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamento.getCodigo()));
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamentoSalvo.getCodigo()));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
     }
