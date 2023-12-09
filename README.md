@@ -192,3 +192,6 @@
      java -jar "./target/algamoney_api-0.0.1-SNAPSHOT.jar --spring.datasource.username= --spring.datasource.password=root"
 </pre>
 
+### 3.12. Usando eventos para adicionar header Location
+
+Revisão e correção de bugs.

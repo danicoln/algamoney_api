@@ -33,12 +33,10 @@ public class CategoriaResource {
 //    } // no retorno, o código verifica se a lista está vazia, se sim, retorna um 404, se não, 200ok.
 
     @PostMapping
-    //@ResponseStatus(HttpStatus.CREATED) // ao terminar a execução deste método, retornará 201
     public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
         Categoria categoriaSalva = categoriaRepository.save(categoria);
         publisher.publishEvent(new RecursoCriadoEvent(this, response, categoriaSalva.getCodigo()));
 
-        // com o retorno created, não precisamos passar a anotação de status.
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
     }
 
