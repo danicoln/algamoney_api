@@ -53,8 +53,8 @@ public class Pessoa {
         return ativo;
     }
 
-    @Transient
-    @JsonIgnore
+    @Transient // o hibernate ignora, não serializa
+    @JsonIgnore // o jacson ignora, não serializa, não manda como propriedade
     public boolean isInativo(){
         return !this.ativo;
     }

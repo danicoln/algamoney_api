@@ -203,3 +203,7 @@ Revisão e correção de bugs.
 ### 5.3. Desafio: Cadastrando o primeiro lançamento
 
 Revisão e correção do desafio.
+
+### 5.6. Regra para não salvar pessoa inativa
+
+Revisão e correção de bugs.
