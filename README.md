@@ -222,3 +222,40 @@ O problema está na linha onde estava tentando acessar root.get("dataVencimentoD
 # 5.8. Desafio: Removendo lançamentos
 
 Implementado uma melhoria no método.
+
+# 6.3. Implementando segurança com OAuth 2 e Password Flow
+
+### Nota Importante sobre a depreciação do Spring Security OAuth2
+
+As aulas deste módulo utilizam o projeto do Spring Security OAuth2, que se encontra depreciado. Para fins didáticos, neste momento, recomendamos que continue utilizando esse projeto na sua última versão disponível, ele irá ajudar a entender diversos conceitos do OAuth2.
+
+### Sobre o novo Spring Authorization Server
+No módulo 25, utilizaremos o Spring Authorization Server, o substituto do Spring Security OAuth2, utilizando todos os conceitos aprendidos aqui. É muito imporante concluir este módulo primeiro
+
+1. Sobre a aula
+2. pom.xml
+Será necessário adicionar ao pom.xml as dependências referentes ao Resource Server do Spring e à utilização do token opaco (Opaque Token).
+
+Outra alteração recomendada é a atualização de spring-security-oauth2 para a versão 2.5.1.RELEASE
+
+```
+<dependency>
+    <groupId>org.springframework.security.oauth</groupId>
+    <artifactId>spring-security-oauth2</artifactId>
+    <version>2.5.1.RELEASE</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+</dependency>
+
+<!-- Necessário para o funcionamento do Opaque Token -->
+<dependency>
+    <groupId>com.nimbusds</groupId>
+    <artifactId>oauth2-oidc-sdk</artifactId>			
+    <version>9.37.2</version>
+    <scope>runtime</scope>
+</dependency>
+```
+
