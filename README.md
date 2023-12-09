@@ -137,7 +137,12 @@
 
 <p>Cadastrar 10 pessoas</p>
 
-# Usando eventos para adicionar header Location
+
+# 3.12. Usando eventos para adicionar header Location
+
+Revisão e correção de bugs.
+
+## Usando eventos para adicionar header Location
 
 <p>Para resolver um problema de código duplicado nas classes PessoaResource e CategoriaResource.</p>
 <p>Toda vez que o dev quiser adicionar o header Location, um método irá disparar um evento </p>
@@ -148,8 +153,21 @@
 
 ![classeRecursoCriadoListener.png](images/classeRecursoCriadoListener.png)
 
-## 5.7 - Atualização da dependência JPA Modelgen
-<p>No vídeo foi utilizada a versão 5.0.12.Final da dependência hibernate-jpamodelgen.A versão adequada para o Spring 2.7.X é a 5.6.9.Final. Para fazer o download desta versão basta adicionar a seguinte dependência no pom.xml</p>
+
+# 4.4. Implementando atualização parcial com PUT
+
+Revisão e correção de bugs.
+
+# 5.3. Desafio: Cadastrando o primeiro lançamento
+
+Revisão e correção do desafio.
+
+# 5.6. Regra para não salvar pessoa inativa
+
+Revisão e correção de bugs.
+
+# 5.7 - Atualização da dependência JPA Modelgen
+<p>No vídeo foi utilizada a versão 5.0.12.Final da dependência hibernate-jpamodelgen. A versão adequada para o Spring 2.7.X é a 5.6.9.Final. Para fazer o download desta versão basta adicionar a seguinte dependência no pom.xml</p>
 
 <pre>
   <code>
@@ -174,7 +192,9 @@
 }
   </code>
 </pre>
-<p>Não foi possível utilizar os crecursos do metaModel no IntelliJIDEA, por isso, optei utilizar a string mesmo</p>
+
+### Observação
+<p>Não foi possível utilizar os recursos do metaModel no IntelliJIDEA, por isso, optei utilizar a string mesmo. A utilização do metaModel é só para não errar nas strings, sendo assim, não é uma propriedade obrigatória</p>
 
 <p>A importação deve ser feita com o seguinte comando:</p>
 
@@ -184,6 +204,13 @@
   </code>
 </pre>
 
+## Resolução de bug da aula 5.7
+
+A filtragem de data não estava dando certo.  
+O problema está na linha onde estava tentando acessar root.get("dataVencimentoDe") e root.get("dataVencimentoAte"). No entanto, esses atributos não existem diretamente na entidade Lancamento, pois pertencem ao filtro LancamentoFilter.
+
+✅ Resolveu após alterar para "dataVencimento". Os atributos em LancamentoFilter, servem para serem usados de parâmetros na url.
+
 # Problema com o Manifest.txt
 
 <p>Acontece que o arquivo jar fica localizado na pasta "target". Sendo assim, estando na pais raiz do projeto, passe o nome da pasta targe junto ao nome do arquivo jar usar o seguinte comando:</p>
@@ -191,19 +218,3 @@
 <pre>
      java -jar "./target/algamoney_api-0.0.1-SNAPSHOT.jar --spring.datasource.username= --spring.datasource.password=root"
 </pre>
-
-### 3.12. Usando eventos para adicionar header Location
-
-Revisão e correção de bugs.
-
-### 4.4. Implementando atualização parcial com PUT
-
-Revisão e correção de bugs.
-
-### 5.3. Desafio: Cadastrando o primeiro lançamento
-
-Revisão e correção do desafio.
-
-### 5.6. Regra para não salvar pessoa inativa
-
-Revisão e correção de bugs.
