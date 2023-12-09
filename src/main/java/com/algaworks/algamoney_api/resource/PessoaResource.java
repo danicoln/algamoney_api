@@ -57,7 +57,7 @@ public class PessoaResource {
         this.pessoaRepository.deleteById(codigo);
     }
 
-    @PutMapping("{codigo}")
+    @PutMapping("/{codigo}")
     public ResponseEntity<Pessoa> atualizar(@Valid @PathVariable Integer codigo, @RequestBody Pessoa pessoa) {
         Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);
         return ResponseEntity.ok(pessoaSalva);

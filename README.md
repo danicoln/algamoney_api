@@ -195,3 +195,7 @@
 ### 3.12. Usando eventos para adicionar header Location
 
 Revisão e correção de bugs.
+
+### 4.4. Implementando atualização parcial com PUT
+
+Revisão e correção de bugs.
