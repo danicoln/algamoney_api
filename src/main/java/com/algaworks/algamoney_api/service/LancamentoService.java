@@ -29,4 +29,11 @@ public class LancamentoService {
         }
         return lancamentoRepository.save(lancamento);
     }
+
+    public void remover(Integer codigo) {
+        Optional<Lancamento> lancamentoId = lancamentoRepository.findById(codigo);
+        if(lancamentoId.isPresent()){
+            lancamentoRepository.deleteById(lancamentoId.get().getCodigo());
+        }
+    }
 }
