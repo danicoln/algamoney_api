@@ -199,3 +199,7 @@ Revisão e correção de bugs.
 ### 4.4. Implementando atualização parcial com PUT
 
 Revisão e correção de bugs.
+
+### 5.3. Desafio: Cadastrando o primeiro lançamento
+
+Revisão e correção do desafio.
