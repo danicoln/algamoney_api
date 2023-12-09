@@ -262,3 +262,7 @@ Outra alteração recomendada é a atualização de spring-security-oauth2 para 
 # Sobre Autenticação e Autorização com Spring Security e JWT Tokens
 
 A Fernanda Kipper ensina a trabalhar com Autenticação e Autorização, [ver mais clicando aqui.](https://www.youtube.com/watch?v=5w-YCcOjPD0)
+
+# Autenticação e Autorização com Spring Security e JWT Tokens - Fernanda Kipper
+
+Implementação da segurança de acordo com video aula de Fernanda Kipper.
