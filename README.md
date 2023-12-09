@@ -218,3 +218,7 @@ O problema está na linha onde estava tentando acessar root.get("dataVencimentoD
 <pre>
      java -jar "./target/algamoney_api-0.0.1-SNAPSHOT.jar --spring.datasource.username= --spring.datasource.password=root"
 </pre>
+
+# 5.8. Desafio: Removendo lançamentos
+
+Implementado uma melhoria no método.

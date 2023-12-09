@@ -70,11 +70,12 @@ public class LancamentoResource {
         return ResponseEntity.badRequest().body(erros);
 
     }
-
+    //Melhoria na implementação do método remover
+    //TODO: Testar método
     @DeleteMapping("/{codigo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletarLancamento(@PathVariable Integer codigo){
-        repository.deleteById(codigo);
+    public void remover(@PathVariable Integer codigo){
+        lancamentoService.remover(codigo);
     }
 
 }
