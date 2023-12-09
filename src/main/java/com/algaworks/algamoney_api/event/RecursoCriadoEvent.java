@@ -3,6 +3,9 @@ package com.algaworks.algamoney_api.event;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationEvent;
 
+/**
+ * 3.12. Usando eventos para adicionar header Location*/
+
 public class RecursoCriadoEvent extends ApplicationEvent {
 
     private HttpServletResponse response;
