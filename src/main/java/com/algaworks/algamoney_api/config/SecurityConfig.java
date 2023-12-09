@@ -19,6 +19,7 @@ import java.util.Arrays;
 // Não é necessário anotar @Configuration, uma vez que esta anotação já tem dentro de EnableWebSecurity, mas n tem problema em declarar aqui tbm
 public class SecurityConfig  {
 
+    //Revisando aula 6.1
     protected void configure (AuthenticationManagerBuilder auth) throws Exception{
         auth.inMemoryAuthentication()
                 .withUser("admin")
