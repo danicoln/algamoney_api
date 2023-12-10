@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 @Service
@@ -51,6 +52,6 @@ public class TokenService {
     private Instant generateExpirationDate(){
         return LocalDateTime.now()
                 .plusHours(2) //adicionamos uma qtde de horas
-                .toInstant(ZoneOffset.of("-3:00")); // inserimos o timezone
+                .toInstant(ZoneOffset.of("-03:00")); // inserimos o timezone
     }
 }
