@@ -1,8 +1,10 @@
 package com.algaworks.algamoney_api.resource;
 
 import com.algaworks.algamoney_api.dto.AuthenticationDto;
+import com.algaworks.algamoney_api.dto.LoginResponseDto;
 import com.algaworks.algamoney_api.dto.RegisterDto;
-import com.algaworks.algamoney_api.model.Usuario;
+import com.algaworks.algamoney_api.infra.security.TokenService;
+import com.algaworks.algamoney_api.domain.model.Usuario;
 import com.algaworks.algamoney_api.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,17 @@ public class AuthenticationResource {
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDto data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDto(token));
     }
 
     @PostMapping("/register")

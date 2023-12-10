@@ -2,7 +2,7 @@ package com.algaworks.algamoney_api.resource;
 
 import com.algaworks.algamoney_api.event.RecursoCriadoEvent;
 import com.algaworks.algamoney_api.exceptionhandler.AlgamoneyExceptionHandler;
-import com.algaworks.algamoney_api.model.Lancamento;
+import com.algaworks.algamoney_api.domain.model.Lancamento;
 import com.algaworks.algamoney_api.repository.LancamentoRepository;
 import com.algaworks.algamoney_api.repository.filter.LancamentoFilter;
 import com.algaworks.algamoney_api.service.LancamentoService;

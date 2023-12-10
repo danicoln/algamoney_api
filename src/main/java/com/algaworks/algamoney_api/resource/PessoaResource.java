@@ -1,7 +1,7 @@
 package com.algaworks.algamoney_api.resource;
 
 import com.algaworks.algamoney_api.event.RecursoCriadoEvent;
-import com.algaworks.algamoney_api.model.Pessoa;
+import com.algaworks.algamoney_api.domain.model.Pessoa;
 import com.algaworks.algamoney_api.repository.PessoaRepository;
 import com.algaworks.algamoney_api.service.PessoaService;
 import jakarta.servlet.http.HttpServletResponse;
