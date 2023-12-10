@@ -1,6 +1,6 @@
 package com.algaworks.algamoney_api.service;
 
-import com.algaworks.algamoney_api.model.Pessoa;
+import com.algaworks.algamoney_api.domain.model.Pessoa;
 import com.algaworks.algamoney_api.repository.PessoaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

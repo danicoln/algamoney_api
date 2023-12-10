@@ -1,7 +1,7 @@
 package com.algaworks.algamoney_api.resource;
 
 import com.algaworks.algamoney_api.event.RecursoCriadoEvent;
-import com.algaworks.algamoney_api.model.Categoria;
+import com.algaworks.algamoney_api.domain.model.Categoria;
 import com.algaworks.algamoney_api.repository.CategoriaRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

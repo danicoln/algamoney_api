@@ -1,6 +1,6 @@
 package com.algaworks.algamoney_api.dto;
 
-import com.algaworks.algamoney_api.model.Categoria;
+import com.algaworks.algamoney_api.domain.model.Categoria;
 
 import java.math.BigDecimal;
 

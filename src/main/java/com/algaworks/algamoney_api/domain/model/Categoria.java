@@ -1,4 +1,4 @@
-package com.algaworks.algamoney_api.model;
+package com.algaworks.algamoney_api.domain.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

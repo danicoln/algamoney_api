@@ -1,6 +1,6 @@
 package com.algaworks.algamoney_api.repository.lancamento;
 
-import com.algaworks.algamoney_api.model.Lancamento;
+import com.algaworks.algamoney_api.domain.model.Lancamento;
 import com.algaworks.algamoney_api.repository.filter.LancamentoFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

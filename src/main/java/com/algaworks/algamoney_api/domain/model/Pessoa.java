@@ -1,4 +1,4 @@
-package com.algaworks.algamoney_api.model;
+package com.algaworks.algamoney_api.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

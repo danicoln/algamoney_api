@@ -1,0 +1,5 @@
+ALTER TABLE usuario
+CHANGE COLUMN email login VARCHAR(50) NOT NULL;
+
+ALTER TABLE usuario
+CHANGE COLUMN senha password VARCHAR(255) NOT NULL;

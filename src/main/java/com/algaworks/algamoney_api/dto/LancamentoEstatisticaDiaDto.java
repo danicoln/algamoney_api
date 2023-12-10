@@ -1,6 +1,6 @@
 package com.algaworks.algamoney_api.dto;
 
-import com.algaworks.algamoney_api.model.TipoLancamento;
+import com.algaworks.algamoney_api.domain.model.TipoLancamento;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

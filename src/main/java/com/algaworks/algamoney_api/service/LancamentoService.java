@@ -2,12 +2,11 @@ package com.algaworks.algamoney_api.service;
 
 import com.algaworks.algamoney_api.repository.LancamentoRepository;
 import com.algaworks.algamoney_api.service.exception.PessoaInexistenteOuInativaException;
-import com.algaworks.algamoney_api.model.Lancamento;
-import com.algaworks.algamoney_api.model.Pessoa;
+import com.algaworks.algamoney_api.domain.model.Lancamento;
+import com.algaworks.algamoney_api.domain.model.Pessoa;
 import com.algaworks.algamoney_api.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
