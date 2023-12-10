@@ -1,4 +1,4 @@
-package com.algaworks.algamoney_api.config;
+package com.algaworks.algamoney_api.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +22,11 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        /**
+                         *Configuramos para que o usuario faça requisição para o endpoint informado*/
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() //primeiramente deixamos essa configuração para poder cadastrar o primeiro usuário
+
                         .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .build();

@@ -38,10 +38,6 @@ public class AuthenticationResource {
         if (this.repository.findByLogin(data.login()) != null) {
             return ResponseEntity.badRequest().build();
         }
-        //verificação de permissão
-//        if(!data.role().equals(UsuarioRole.ADMIN)){
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-//        }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         Usuario novoUsuario = new Usuario(data.nome(), data.login(), encryptedPassword, data.role());
