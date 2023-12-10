@@ -42,7 +42,7 @@ public class AuthenticationResource {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
-        if (this.repository.findByLogin(data.login()) != null) {
+        if (this.repository.findByEmail(data.login()) != null) {
             return ResponseEntity.badRequest().build();
         }
 

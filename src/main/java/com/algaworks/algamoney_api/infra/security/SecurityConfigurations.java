@@ -31,11 +31,10 @@ public class SecurityConfigurations {
                          *Configuramos para que o usuario faça requisição para o endpoint informado*/
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() //primeiramente deixamos essa configuração para poder cadastrar o primeiro usuário
-
                         .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)  //adicionamos um filtro antes disso
+                .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)  //adicionamos um filtro antes disso
                 .build();
     }
 

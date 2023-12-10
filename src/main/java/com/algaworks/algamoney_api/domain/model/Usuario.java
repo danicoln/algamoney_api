@@ -23,11 +23,11 @@ public class Usuario implements UserDetails {
 
     @NotNull
     @Column(name = "login")
-    private String login;
+    private String email;
 
     @NotNull
     @Column(name = "password")
-    private String password;
+    private String senha;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -36,10 +36,10 @@ public class Usuario implements UserDetails {
     public Usuario() {
     }
 
-    public Usuario(String nome, String login, String password, UsuarioRole role) {
+    public Usuario(String nome, String email, String senha, UsuarioRole role) {
         this.nome = nome;
-        this.login = login;
-        this.password = password;
+        this.email = email;
+        this.senha = senha;
         this.role = role;
     }
 
@@ -53,14 +53,26 @@ public class Usuario implements UserDetails {
         }
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public UsuarioRole getRole() {
+        return role;
+    }
+
+    public void setRole(UsuarioRole role) {
+        this.role = role;
+    }
+
     @Override
     public String getPassword() {
-        return this.password;
+        return this.senha;
     }
 
     @Override
     public String getUsername() {
-        return this.login;
+        return this.email;
     }
 
     @Override
@@ -112,16 +124,16 @@ public class Usuario implements UserDetails {
         this.nome = nome;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

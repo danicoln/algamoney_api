@@ -23,7 +23,7 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("auth-api")                     // passamos quem é o emissor
-                    .withSubject(usuario.getUsername())         // adicionamos o subject no token
+                    .withSubject(usuario.getEmail())         // adicionamos o subject no token
                     .withExpiresAt(generateExpirationDate())    // gera um tempo de expiração
                     .sign(algorithm);
             return token;
@@ -36,12 +36,13 @@ public class TokenService {
     public String validateToken(String token){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret); // cria o algorithm
-            return JWT.require(algorithm)                   // informamos o algorithn criado
+            String subject = JWT.require(algorithm)                   // informamos o algorithn criado
                     .withIssuer("auth-api")                 // passamos quem é o emissor
                     .build()                                // montamos o dado dentro de algorithm
                     .verify(token)                          // descriptografamos o token
                     .getSubject();                          // pegamos o subject que tínhamos salvo
-
+            System.out.println("Subject: " + subject);
+            return subject;
         } catch (JWTVerificationException ex){              //  Capturamos a exeção caso, o token for inválido.
             return "";
         }
