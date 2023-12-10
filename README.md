@@ -257,6 +257,7 @@ Outra alteração recomendada é a atualização de spring-security-oauth2 para 
     <version>9.37.2</version>
     <scope>runtime</scope>
 </dependency>
+
 ```
 
 # Sobre Autenticação e Autorização com Spring Security e JWT Tokens

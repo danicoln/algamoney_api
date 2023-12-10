@@ -22,17 +22,30 @@ public class Usuario implements UserDetails {
     private String nome;
 
     @NotNull
-    private String email;
+    @Column(name = "login")
+    private String login;
 
     @NotNull
-    private String senha;
+    @Column(name = "password")
+    private String password;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private UsuarioRole role;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String login, String password, UsuarioRole role) {
+        this.nome = nome;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UsuarioRole.ADMIN){
+        if (this.role == UsuarioRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_USER"));
         } else {
@@ -42,12 +55,12 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.senha;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.login;
     }
 
     @Override
@@ -99,19 +112,16 @@ public class Usuario implements UserDetails {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getSenha() {
-        return senha;
-    }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
