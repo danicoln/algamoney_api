@@ -33,6 +33,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //        return authenticationManager();
 //    }
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
@@ -43,7 +46,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .accessTokenValiditySeconds(1800)
                 .and()
                 .withClient("mobile")
-                .secret(passwordEncoder().encode("m0b1l30")) // m0b1l30
+                .secret(passwordEncoder.encode("m0b1l30")) // m0b1l30
                 .scopes("read")
                 .authorizedGrantTypes("password")
                 .accessTokenValiditySeconds(1800);
@@ -61,10 +64,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new JwtTokenStore(accessTokenConverter());
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
