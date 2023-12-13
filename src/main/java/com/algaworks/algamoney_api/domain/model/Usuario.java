@@ -23,7 +23,7 @@ public class Usuario implements UserDetails {
 
     @NotNull
     @Column(name = "login")
-    private String email;
+    private String login;
 
     @NotNull
     @Column(name = "password")
@@ -36,9 +36,9 @@ public class Usuario implements UserDetails {
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, UsuarioRole role) {
+    public Usuario(String nome, String login, String senha, UsuarioRole role) {
         this.nome = nome;
-        this.email = email;
+        this.login = login;
         this.senha = senha;
         this.role = role;
     }
@@ -72,7 +72,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.login;
     }
 
     @Override
@@ -124,12 +124,12 @@ public class Usuario implements UserDetails {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
 

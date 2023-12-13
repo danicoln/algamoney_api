@@ -148,6 +148,7 @@ public class AuthServerConfig {
     /**
      * Bean que lê a chave de assinatura que estamos utilizando
      */
+    @Bean
     public JWKSource<SecurityContext> jwkSource(JWKSet jwkSet) {
         return ((jwkSelector, securityContext) -> jwkSelector.select(jwkSet));
     }
@@ -155,12 +156,14 @@ public class AuthServerConfig {
     /**
      * Bean de encoder do jwt
      */
+    @Bean
     public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
         return new NimbusJwsEncoder(jwkSource);
     }
 
     /**
      * Bean que representa uma parta da assinatura do token, o criador do token*/
+    @Bean
     public ProviderSettings providerSettings(){
         return ProviderSettings.builder()
                 .issuer(algamoneyApiProperty.getSeguranca().getAuthServerUrl()) // na issuer, podemos passar a url fixa (http:// ..)
