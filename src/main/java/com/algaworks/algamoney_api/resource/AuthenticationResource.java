@@ -8,6 +8,7 @@ import com.algaworks.algamoney_api.domain.model.Usuario;
 import com.algaworks.algamoney_api.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthenticationResource {
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -42,7 +42,7 @@ public class AuthenticationResource {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
-        if (this.repository.findByEmail(data.login()) != null) {
+        if (this.repository.findByLogin(data.login()) != null) {
             return ResponseEntity.badRequest().build();
         }
 
