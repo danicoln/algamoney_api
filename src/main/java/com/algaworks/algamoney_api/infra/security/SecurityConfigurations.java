@@ -45,14 +45,7 @@ public class SecurityConfigurations {
     }
 
     @Bean
-<<<<<<< Updated upstream
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-=======
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
->>>>>>> Stashed changes
 }
