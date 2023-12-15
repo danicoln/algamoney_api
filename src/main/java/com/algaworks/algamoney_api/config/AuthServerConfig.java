@@ -66,7 +66,7 @@ public class AuthServerConfig {
                 .scope("read")
                 .scope("write")
                 .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofMinutes(30))
+                        .accessTokenTimeToLive(Duration.ofMinutes(1))
                         .refreshTokenTimeToLive(Duration.ofDays(24))
                         .build())
                 .clientSettings(
@@ -85,7 +85,7 @@ public class AuthServerConfig {
                 .redirectUris(uris -> uris.addAll(algamoneyApiProperty.getSeguranca().getRedirectsPermitidos()))
                 .scope("read")
                 .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofMinutes(30))
+                        .accessTokenTimeToLive(Duration.ofMinutes(1))
                         .refreshTokenTimeToLive(Duration.ofDays(24))
                         .build())
                 .clientSettings(

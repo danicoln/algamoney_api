@@ -23,6 +23,11 @@ public class SecurityConfigurations {
     private SecurityFilter securityFilter;
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
@@ -37,6 +42,11 @@ public class SecurityConfigurations {
 
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)  //adicionamos um filtro antes disso
                 .build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

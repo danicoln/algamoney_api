@@ -48,10 +48,6 @@ public class ResourceServerConfig {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     private JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
