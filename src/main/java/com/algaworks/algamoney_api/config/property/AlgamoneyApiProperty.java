@@ -1,9 +1,14 @@
 package com.algaworks.algamoney_api.config.property;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Aula: 7.2. Profiles do Spring
+ * */
+@Component
 @ConfigurationProperties("algamoney")
 public class AlgamoneyApiProperty {
 
@@ -66,11 +71,23 @@ public class AlgamoneyApiProperty {
 
     }
 
-
+    /**
+     * Agrupar por temas semelhantes
+     * */
     public static class Seguranca {
 
+        // atributo referente a aula 7.2 Profiles do Spring
+        private boolean enableHttps;
         private List<String> redirectsPermitidos;
         private String authServerUrl;
+
+        public boolean isEnableHttps(){
+            return enableHttps;
+        }
+
+        public void setEnableHttps(boolean enableHttps) {
+            this.enableHttps = enableHttps;
+        }
 
         public List<String> getRedirectsPermitidos() {
             return redirectsPermitidos;
