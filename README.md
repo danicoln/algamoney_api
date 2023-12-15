@@ -330,3 +330,15 @@ Necessário analisar o problema.
 
 Essa funcionalidade é para retornar apenas informações que o cliente exemplo precisa. 
 Criamos uma classe ResumoLancamento. Esta classe contém apenas os getters e setters e o construtor com todos os atributos no parâmentro.
+
+## 7.2. Profiles do Spring
+
+### 1. Configuração da classe AlgamoneyApiProperty
+É necessário adicionar a anotação @Component na classe AlgamoneyApiProperty. O bean injetado nas classes Token Resource, RefreshTokenPostProcessor e CorsFilter depende dessa configuração, que não é mais realizada automaticamente apenas com a anotação @ConfigurationProperties
+
+### 2. Alteração em AlgamoneyApiApplication
+Não é mais necessário colocar a anotação EnableConfigurationProperties em AlgamoneyApiApplication, logo, a seguinte linha de código pode ser removida:
+
+```
+@EnableConfigurationProperties(value = AlgamoneyApiProperty.class)
+```

@@ -61,6 +61,15 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+<!--        Aula 7.2 Profiles do Spring
+
+        Precisamos dessa dependencia para a propriedade em AlgamoneyApiProperty funcionar direito-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-authorization-server</artifactId>
