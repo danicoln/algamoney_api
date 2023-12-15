@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 @Service
@@ -24,7 +23,7 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("auth-api")                     // passamos quem é o emissor
-                    .withSubject(usuario.getEmail())         // adicionamos o subject no token
+                    .withSubject(usuario.getLogin())         // adicionamos o subject no token
                     .withExpiresAt(generateExpirationDate())    // gera um tempo de expiração
                     .sign(algorithm);
             return token;
