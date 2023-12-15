@@ -272,3 +272,54 @@ Implementação da segurança de acordo com video aula de Fernanda Kipper.
 ## Usando JWT
 
 ### Criando serviço para gerar Token JWT
+
+# 6.12. Adicionando permissões de acesso
+
+## 1. Sobre a aula
+Para essa aula, precisaremos fazer algumas adaptações em nosso código para que ele possa funcionar
+
+## 2. CategoriaResource
+Devido á nova stack de segurança do Spring Security a expressão "#oauth2.hasScope" não é mais utilizada. No seu lugar vamos utilizar a expressão "hasAuthority", informando um escopo específico, exemplo: hasAuthority('SCOPE_read').
+
+```
+@RequestMapping("/categorias")
+public class CategoriaResource {
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+
+	@Autowired
+	private ApplicationEventPublisher publisher;
+    
+        @GetMapping
+        @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and hasAuthority('SCOPE_read')" )
+        public List<Categoria> listar() {
+        	return categoriaRepository.findAll();
+        }
+    	
+	@PostMapping
+        @PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and hasAuthority('SCOPE_write')")
+	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
+		Categoria categoriaSalva = categoriaRepository.save(categoria);
+		
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, categoriaSalva.getCodigo()));
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
+	}
+
+    	@GetMapping("/{codigo}")
+    	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and hasAuthority('SCOPE_read')")
+    	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
+        	Optional<Categoria> categoria = categoriaRepository.findById(codigo);
+
+        	return categoria.isPresent() ? ResponseEntity.ok(categoria.get()) : ResponseEntity.notFound().build();
+    	}
+    
+}
+```
+
+# 6.13. Desafio: Finalizando permissões de acesso
+
+O teste da implementação não está dando certo. 
+Mesmo o usuário não tendo permissões para alterações, o usuário mesmo ainda assim consegue. 
+Necessário analisar o problema.

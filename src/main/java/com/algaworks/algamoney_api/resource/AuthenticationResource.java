@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth") //verificar oauth2
 public class AuthenticationResource {
 
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
