@@ -323,3 +323,10 @@ public class CategoriaResource {
 O teste da implementação não está dando certo. 
 Mesmo o usuário não tendo permissões para alterações, o usuário mesmo ainda assim consegue. 
 Necessário analisar o problema.
+
+# Deploy da API
+
+## 7.1. Implementando projeção de lançamento
+
+Essa funcionalidade é para retornar apenas informações que o cliente exemplo precisa. 
+Criamos uma classe ResumoLancamento. Esta classe contém apenas os getters e setters e o construtor com todos os atributos no parâmentro.
