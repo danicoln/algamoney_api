@@ -5,6 +5,7 @@ import com.algaworks.algamoney_api.exceptionhandler.AlgamoneyExceptionHandler;
 import com.algaworks.algamoney_api.domain.model.Lancamento;
 import com.algaworks.algamoney_api.repository.LancamentoRepository;
 import com.algaworks.algamoney_api.repository.filter.LancamentoFilter;
+import com.algaworks.algamoney_api.repository.projection.ResumoLancamento;
 import com.algaworks.algamoney_api.service.LancamentoService;
 import com.algaworks.algamoney_api.service.exception.PessoaInexistenteOuInativaException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -38,21 +40,31 @@ public class LancamentoResource {
     @Autowired
     private MessageSource messageSource;
 
-    //Desafio
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('read')")
     public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable){
         return repository.filtrar(lancamentoFilter, pageable);
     }
-    //Desafio
+
+    /**
+     * aula: 7.1. Implementando projeção de lançamento
+     * */
+    @GetMapping(params = "resumo") // precisamos passar o parâmetro(se tiver a palavra "resumo" na pesquisa, este recurso será chamado)
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('read')")
+    public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable){
+        return repository.resumir(lancamentoFilter, pageable);
+    }
+
     @GetMapping("/{codigo}")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('read')")
     public ResponseEntity<Lancamento> buscarPorCodigo(@Valid @PathVariable Integer codigo){
         return repository.findById(codigo)
                 .map(lancamento -> ResponseEntity.ok(lancamento))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //Desafio5.3 - Correção
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and hasAuthority('write')")
     public ResponseEntity<Lancamento> cadastrarLancamento(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response){
         Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
         publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamentoSalvo.getCodigo()));
@@ -70,9 +82,9 @@ public class LancamentoResource {
         return ResponseEntity.badRequest().body(erros);
 
     }
-    //Melhoria na implementação do método remover
     //TODO: Testar método
     @DeleteMapping("/{codigo}")
+    @PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO') and hasAuthority('write')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Integer codigo){
         lancamentoService.remover(codigo);
