@@ -317,3 +317,9 @@ public class CategoriaResource {
     
 }
 ```
+
+# 6.13. Desafio: Finalizando permissões de acesso
+
+O teste da implementação não está dando certo. 
+Mesmo o usuário não tendo permissões para alterações, o usuário mesmo ainda assim consegue. 
+Necessário analisar o problema.
