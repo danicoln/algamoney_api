@@ -346,3 +346,4 @@ Não é mais necessário colocar a anotação EnableConfigurationProperties em A
 ## 7.5. Nome do usuário no token JWT
 
 Esta aula foi depreciada conforme podemos verificar no APENDICE 25.
+
