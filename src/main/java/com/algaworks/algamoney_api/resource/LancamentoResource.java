@@ -90,4 +90,16 @@ public class LancamentoResource {
         lancamentoService.remover(codigo);
     }
 
+    /**
+     * 7.9. Desafio: Atualização de lançamento*/
+    @PutMapping("{codigo}")
+    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO')")
+    public ResponseEntity<Lancamento> atualizar(@PathVariable Integer codigo, @Valid @RequestBody Lancamento lancamento){
+        try {
+            Lancamento lancamentoSalvo = lancamentoService.atualizar(codigo, lancamento);
+            return ResponseEntity.ok(lancamentoSalvo);
+        } catch (IllegalArgumentException ex){
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
