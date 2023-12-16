@@ -4,8 +4,13 @@ RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
 COPY . .
 
+ARG SPRING_PROFILES_ACTIVE
+ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-default}
+
+COPY src/main/resources/application-prod.properties src/main/resources/
+
 RUN apt-get install maven -y
-RUN mvn clean install
+RUN mvn clean install -P${SPRING_PROFILES_ACTIVE}
 
 FROM openjdk:17-jdk-slim
 
