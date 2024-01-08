@@ -10,6 +10,8 @@ import com.algaworks.algamoney_api.service.LancamentoService;
 import com.algaworks.algamoney_api.service.exception.PessoaInexistenteOuInativaException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -27,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/lancamentos")
 public class LancamentoResource {
+
 
     @Autowired
     private LancamentoRepository repository;
@@ -92,9 +95,10 @@ public class LancamentoResource {
 
     /**
      * 7.9. Desafio: Atualização de lançamento*/
-    @PutMapping("{codigo}")
+    @PutMapping("/{codigo}")
     @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO')")
     public ResponseEntity<Lancamento> atualizar(@PathVariable Integer codigo, @Valid @RequestBody Lancamento lancamento){
+
         try {
             Lancamento lancamentoSalvo = lancamentoService.atualizar(codigo, lancamento);
             return ResponseEntity.ok(lancamentoSalvo);
