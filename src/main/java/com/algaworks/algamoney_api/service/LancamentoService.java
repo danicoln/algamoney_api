@@ -3,12 +3,15 @@ package com.algaworks.algamoney_api.service;
 import com.algaworks.algamoney_api.domain.model.Categoria;
 import com.algaworks.algamoney_api.repository.CategoriaRepository;
 import com.algaworks.algamoney_api.repository.LancamentoRepository;
+import com.algaworks.algamoney_api.resource.LancamentoResource;
 import com.algaworks.algamoney_api.service.exception.CategoriaInexistenteOuInativaException;
 import com.algaworks.algamoney_api.service.exception.DadosObrigatoriosLancamentoException;
 import com.algaworks.algamoney_api.service.exception.PessoaInexistenteOuInativaException;
 import com.algaworks.algamoney_api.domain.model.Lancamento;
 import com.algaworks.algamoney_api.domain.model.Pessoa;
 import com.algaworks.algamoney_api.repository.PessoaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class LancamentoService {
+
+    private static final Logger logger = LoggerFactory.getLogger(LancamentoResource.class);
 
     @Autowired
     private PessoaRepository pessoaRepository;
@@ -46,34 +51,35 @@ public class LancamentoService {
     }
 
     /**
-     * 7.9. Desafio: Atualização de lançamento*/
+     * 7.9. Desafio: Atualização de lançamento
+     */
     public Lancamento atualizar(Integer codigo, Lancamento lancamento) {
         Optional<Lancamento> lancamentoSalvo = buscarLancamentoExistente(codigo);
 
-        if (lancamentoSalvo.isPresent()) {
+        if (!lancamento.getPessoa().equals(lancamentoSalvo.get().getPessoa())) {
             validarPessoa(lancamento);
         }
-        BeanUtils.copyProperties(lancamento, lancamentoSalvo, "codigo");
+        Lancamento lancamentoParaAtualizar = lancamentoSalvo.get();
+        BeanUtils.copyProperties(lancamento, lancamentoParaAtualizar, "codigo");
 
-        return lancamentoRepository.save(lancamentoSalvo.get());
+        return lancamentoRepository.save(lancamentoParaAtualizar);
     }
 
     private void validarPessoa(Lancamento lancamento) {
         Integer codigoPessoa = lancamento.getPessoa().getCodigo();
+        Optional<Pessoa> pessoaOptional = null;
         if (codigoPessoa != null) {
-            Optional<Pessoa> pessoaOptional = pessoaRepository.findById(codigoPessoa);
+            pessoaOptional = pessoaRepository.findById(lancamento.getPessoa().getCodigo());
 
-            if (pessoaOptional.isPresent()) {
-                Pessoa pessoa = pessoaOptional.get();
+            if (!pessoaOptional.isPresent() || pessoaOptional.get().isInativo()) {
 
-                if (pessoa.isInativo()) {
-                    throw new PessoaInexistenteOuInativaException();
-                }
-            } else {
                 throw new PessoaInexistenteOuInativaException();
             }
+        } else {
+            throw new PessoaInexistenteOuInativaException();
         }
     }
+
 
     private Optional<Lancamento> buscarLancamentoExistente(Integer codigo) {
         Optional<Lancamento> lancamentoSalvo = lancamentoRepository.findById(codigo);
